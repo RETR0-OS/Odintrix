@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/items_list.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <section class="Home" id="Home">
+    <div class="home_logo col-sm-10 offset-sm-1 justify-content-center text-align-center">
+      <img class="rounded mx-auto d-block" style="width:100%; margin:0; padding:0" src="{% static 'Images/logo_.png' %}">
+    </div>
+  </section>
+  <section class="AboutUs" id="AboutUs">
+    <div class="about_contain col-sm-8 offset-sm-2 text-center justify-content-center mt-5">
+      <h2 class="about_heading">Get To Know Us!</h2>
+      <div class="about_para">
+        <p>With the world population on the rise every year, the amount of waste we produce annually is also growing at an exponential rate. Out of these mountains of garbage, nearly 34 billion pounds is recyclable cloth waste. Keeping in mind this treasure trove that we toss out every year, we have embarked on a mission to rejuvinate the waste cloth and shoes dumpped in our landfills every year, and give them a new life.</p>
+        <p>Here at Green Shoeniverse, we make wonders of waste by collecting nearly 13 million tonnes of waste cloth from different landfills accross the country and recycling them into stunning pair of footwear for you to stay in your comfort zone, in style!</p>
+      </div>
+    </div>
+  <br><br>
+    <div class="new_arrivals col-sm-10 offset-sm-1">
+      <h2 class="text-center">Our New Arrivals</h2>
+      <br><br>
+      <div class="row justify-content-center">
+          {% for new_item in new_items_list %}
+            <div class="card text-center border-primary col-sm-3 mt-3">
+              <div class="card-header badge text-bg-primary">
+                New!
+              </div>
+                <div class="card-body">
+                  <h3 class="card-title">{{new_item.itemName}}</h3>
+                  <img src="{{new_item.itemPic.url}}" alt="A picture of the product" height="200px" width="200px">
+                  {% if new_item.itemDiscountPrice %}
+                    <h5 class="card-title"><s>${{new_item.itemPrice}}</s> ${{new_item.itemDiscountPrice}}</h5>
+                  {% else %}
+                    <h5 class="card-title">${{new_item.itemPrice}}</h5>
+                  {% endif %}
+                  <p class="card-text">{{new_item.itemDescription| slice:":200"}}....</p>
+                  <a href="{{new_item.get_absolute_url}}" class="btn btn-primary"><span>View Product</span></a>
+                </div>
+            </div>
+            <br><br>
+          {% endfor %}
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+  </section>
+{% endblock %}
